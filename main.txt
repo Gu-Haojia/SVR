@@ -1,0 +1,62 @@
+
+import numpy as np
+from sklearn import svm
+import matplotlib.pyplot as plt
+f=open('./CSR1.DAT')
+data=[]
+flag=0
+for line in f.readlines():
+    str = line.strip().split("\t")
+    tmp = []
+    if str[0]=='1':
+        flag=1
+    if line=='\n':
+        flag=0
+    if flag==1:
+        for i in range(1, len(str)):
+            tmp.append(float(str[i]))
+        data.append(tmp)
+
+y=np.array(data)
+
+
+y=y.ravel()
+
+
+
+x = np.arange(1, len(data)+1, 1)
+x.shape = (-1, 1)
+
+
+train=svm.SVR()
+train.fit(x,y)
+print(train.predict([[1]]))
+
+
+
+
+
+
+
+"""
+x = np.arange(1, len(data)+1, 1)
+x.reshape(-1,1)
+x.tolist()
+print(x)
+
+x=[]
+for i in range(1,(len(data)+1)):
+    x.append(i)
+
+train=svm.SVR()
+train.fit(x,data)
+print(train.predict([[1]]))
+
+plt.figure(figsize=(21, 8))
+plt.plot(x, data, label="CDF", color='g')
+plt.title("CDF")
+plt.show()
+
+print(data)
+print(x)
+"""
